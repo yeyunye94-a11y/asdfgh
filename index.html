@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台系統維護操作手冊 - 義守大學</title>
+    <meta name="description" content="義守大學後台系統維護操作手冊，含系統維護、帳號管理、版面設定、廣告橫幅、首頁區塊及最新消息完整說明。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ═══════════════ TOKENS ═══════════════ */
+        :root {
+            --primary: #0f2b5b;
+            --primary-light: #1e4d8c;
+            --accent: #0ea5e9;
+            --accent-soft: #38bdf8;
+            --accent-glow: rgba(14, 165, 233, .18);
+            --bg-main: #f0f4f8;
+            --bg-dark: #0c1929;
+            --bg-dark-2: #132337;
+            --white: #ffffff;
+            --border: #dde5ef;
+            --border-light: #e8eef6;
+            --text: #0f172a;
+            --muted: #64748b;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 4px rgba(15, 43, 91, .05), 0 2px 8px rgba(15, 43, 91, .04);
+            --shadow-md: 0 4px 16px rgba(15, 43, 91, .08), 0 8px 32px rgba(15, 43, 91, .05);
+            --shadow-lg: 0 8px 32px rgba(15, 43, 91, .10), 0 16px 48px rgba(15, 43, 91, .06);
+            --shadow-glow: 0 0 20px rgba(14, 165, 233, .15), 0 4px 16px rgba(14, 165, 233, .08);
+            --grad: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+            --grad-dark: linear-gradient(135deg, #0c1929 0%, #1a3350 100%);
+            --grad-accent: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+            --grad-subtle: linear-gradient(180deg, #f8fbff 0%, #f0f4f8 100%);
+            --sidebar-w: 280px;
+            --transition: .25s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        /* ═══════════════ RESET ═══════════════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-main);
+            background-image: radial-gradient(ellipse at 80% 0%, rgba(14, 165, 233, .06) 0%, transparent 60%),
+                radial-gradient(ellipse at 0% 100%, rgba(30, 64, 175, .04) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.65;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ═══════════════ SIDEBAR ═══════════════ */
+        #sidebar {
+            width: var(--sidebar-w);
+            min-width: var(--sidebar-w);
+            background: var(--bg-dark);
+            background-image: linear-gradient(180deg, rgba(14, 165, 233, .05) 0%, transparent 40%);
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 200;
+            border-right: 1px solid rgba(255, 255, 255, .04);
+        }
+
+        .sb-logo {
+            display: flex;
+            align-items: center;
+            gap: .85rem;
+            padding: 1.5rem 1.25rem 1.15rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .sb-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--grad);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: .82rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, .3);
+            letter-spacing: .03em;
+        }
+
+        .sb-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, .8));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sb-sub {
+            font-size: .66rem;
+            color: rgba(255, 255, 255, .35);
+            margin-top: .15rem;
+            letter-spacing: .02em;
+        }
+
+        .sb-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: .7rem .8rem 2rem;
+        }
+
+        .sb-nav::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .sb-nav::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .1);
+            border-radius: 10px;
+        }
+
+        .nav-group {
+            font-size: .6rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .25);
+            margin: 1.1rem 0 .4rem .55rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            padding: .6rem .75rem;
+            color: rgba(255, 255, 255, .5);
+            border-radius: 9px;
+            font-size: .82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            user-select: none;
+            line-height: 1.3;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, .06);
+            color: rgba(255, 255, 255, .85);
+        }
+
+        .nav-item.active {
+            background: var(--grad);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, .35), inset 0 1px 0 rgba(255, 255, 255, .15);
+        }
+
+        .nav-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            transition: all var(--transition);
+        }
+
+        .nav-item:hover .nav-num {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .nav-item.active .nav-num {
+            background: rgba(255, 255, 255, .22);
+        }
+
+        /* ═══════════════ MAIN ═══════════════ */
+        main {
+            flex: 1;
+            margin-left: var(--sidebar-w);
+            padding: 2.5rem 3.5rem;
+        }
+
+        /* ── Page heading ── */
+        .page-hd {
+            margin-bottom: 2.5rem;
+            padding: 2rem 2.25rem;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hd::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--grad);
+        }
+
+        .page-hd h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.9rem;
+            color: var(--primary);
+            letter-spacing: -.03em;
+            margin-bottom: .25rem;
+            font-weight: 800;
+        }
+
+        .page-hd p {
+            color: var(--muted);
+            font-size: .9rem;
+            font-weight: 500;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: .45rem 1.1rem;
+            border-radius: 100px;
+            border: 1px solid rgba(14, 165, 233, .2);
+            font-size: .78rem;
+            font-weight: 700;
+            color: #0284c7;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ── Section show/hide (sidebar navigation) ── */
+        .sec {
+            display: none;
+        }
+
+        .sec.active {
+            display: block;
+        }
+
+        /* ── Section title ──
+        */
+        .sec-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: .8rem;
+        }
+
+        .sec-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 5px;
+            background: var(--grad);
+            border-radius: 3px;
+        }
+
+        .sub-heading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 2rem 0 1.2rem;
+            padding: .75rem 1rem;
+            border-left: 4px solid var(--accent);
+            background: rgba(14, 165, 233, .04);
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ── Document Card ── */
+        .doc-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.75rem;
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ── Path Info ── */
+        .path-info {
+            background: #f1f5f9;
+            padding: 0.85rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .path-info::before {
+            content: "📍";
+        }
+
+        /* ── Callouts ── */
+        .callout {
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            border-left: 5px solid;
+            font-weight: 500;
+        }
+
+        .callout.tip {
+            background: #f0fdf4;
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .callout.note {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .callout.warning {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        /* ── Lists ── */
+        .step-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-list>li {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-list>li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--grad);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .step-list.bullet>li::before {
+            content: "•";
+            background: var(--accent-glow);
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .step-content span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ── Data Table ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .data-table th {
+            background: #f8fafc;
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .data-table td {
+            padding: 1.15rem 1.25rem;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover {
+            background: #fdfdfd;
+        }
+
+        /* ── UI Elements ── */
+        .btn {
+            background: #f1f5f9;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        /* ── Images ── */
+        .img-step {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 8px;
+            background: white;
+            box-shadow: var(--shadow-md);
+            max-width: 800px;
+        }
+
+        .img-step img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .img-cap {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.75rem;
+            font-weight: 700;
+        }
+
+        .two-col-imgs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .multi-imgs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .multi-imgs .img-step {
+            flex: 1;
+            min-width: 180px;
+            margin: 0;
+        }
+
+        /* ── Index Page ── */
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .index-card {
+            background: white;
+            padding: 1.75rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition);
+        }
+
+        .index-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+
+        .index-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .index-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .index-card li {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .index-card li::before {
+            content: "→";
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+
+
+        /* ─── Dashboard Phase Cards ─── */
+        .index-card {
+            transition: var(--transition);
+        }
+
+        .index-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .idx-phase {
+            display: inline-block;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .25rem .65rem;
+            background: var(--grad);
+            color: #fff;
+            border-radius: 50px;
+            margin-bottom: .75rem;
+        }
+
+        .idx-btn {
+            margin-top: 1.2rem;
+            display: inline-block;
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: .03em;
+        }
+
+        /* ── Spec Row (banner size specs) ── */
+        .spec-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0 1.5rem;
+        }
+
+        .spec-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 1.1rem 1.4rem;
+            min-width: 130px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            flex: 1;
+        }
+
+        .s-label {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-bottom: .4rem;
+        }
+
+        .s-val {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* ── Tabs for Section 7 ── */
+        .tab-container {
+            margin: 1.5rem 0 2rem;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.65rem 1.25rem;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background: rgba(14, 165, 233, 0.05);
+        }
+
+        .tab-btn.active {
+            color: var(--white);
+            background: var(--grad);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════════════ FOOTER ═══════════════ */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 2.25rem;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            color: var(--muted);
+            font-size: .82rem;
+            font-weight: 500;
+        }
+
+        /* ═══════════════ RESPONSIVE ═══════════════ */
+        @media (max-width: 1100px) {
+            :root {
+                --sidebar-w: 68px;
+            }
+
+            .sb-title,
+            .sb-sub,
+            .nav-group,
+            .nav-item span {
+                display: none;
+            }
+
+            .sb-logo {
+                padding: 1.1rem .8rem;
+                justify-content: center;
+            }
+
+            .sb-logo>div:last-child {
+                display: none;
+            }
+
+            .nav-item {
+                justify-content: center;
+                padding: .65rem;
+            }
+
+            .nav-num {
+                width: 30px;
+                height: 30px;
+                font-size: .82rem;
+            }
+
+            main {
+                padding: 2rem 1.5rem;
+            }
+
+            .doc-row,
+            .doc-row.wide-left {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-cell.img-cell {
+                border-left: none;
+                border-top: 1px solid var(--border-light);
+            }
+        }
+
+        @media (max-width: 650px) {
+            main {
+                padding: 1.25rem .85rem;
+            }
+
+            .page-hd {
+                flex-direction: column;
+                padding: 1.5rem 1.25rem;
+            }
+
+            .page-hd h1 {
+                font-size: 1.45rem;
+            }
+
+            .doc-row,
+            .doc-row.wide-left {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-card {
+                min-width: 110px;
+                padding: .85rem .7rem;
+            }
+
+            .spec-card .s-val {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══════════════════════════ SIDEBAR ══════════════════════════ -->
+    <aside id="sidebar">
+        <div class="sb-logo">
+            <div class="sb-icon">ISU</div>
+            <div>
+                <div class="sb-title">系統維護手冊</div>
+                <div class="sb-sub">後台系統維護手冊</div>
+            </div>
+        </div>
+
+        <nav class="sb-nav">
+            <div class="nav-item active" onclick="go('home',this)">
+                <div class="nav-num">🏠</div><span>手冊首頁 / 導覽</span>
+            </div>
+
+            <div class="nav-group">第一階段：系統核心設定</div>
+            <div class="nav-item" onclick="go('s1',this)">
+                <div class="nav-num">1</div><span>1. 系統參數設定</span>
+            </div>
+            <div class="nav-item" onclick="go('s2',this)">
+                <div class="nav-num">2</div><span>2. 圖片裁切功能</span>
+            </div>
+            <div class="nav-item" onclick="go('s3',this)">
+                <div class="nav-num">3</div><span>3. 使用者管理</span>
+            </div>
+
+            <div class="nav-group">第二階段：版面與頁面管理</div>
+            <div class="nav-item" onclick="go('s4',this)">
+                <div class="nav-num">4</div><span>4. 網頁版面管理</span>
+            </div>
+            <div class="nav-item" onclick="go('s5',this)">
+                <div class="nav-num">5</div><span>5. 自訂頁面維護</span>
+            </div>
+            <div class="nav-item" onclick="go('s6',this)">
+                <div class="nav-num">6</div><span>6. 廣告橫幅設定</span>
+            </div>
+
+            <div class="nav-group">第三階段：內容維護管理</div>
+            <div class="nav-item" onclick="go('s7',this)">
+                <div class="nav-num">7</div><span>7. 首頁區塊設定</span>
+            </div>
+            <div class="nav-item" onclick="go('s8',this)">
+                <div class="nav-num">8</div><span>8. 圖片區塊設定</span>
+            </div>
+            <div class="nav-item" onclick="go('s9',this)">
+                <div class="nav-num">9</div><span>9. 最新消息發布</span>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- ══════════════════════════ MAIN ══════════════════════════ -->
+    <main>
+        <!-- Section: Dashboard / Home -->
+        <div id="home" class="sec active">
+            <div class="page-hd">
+                <div>
+                    <p class="badge">✦ PREMIUM DOCUMENTATION HUB</p>
+                    <h1>系統維護操作手冊</h1>
+                    <p>專業、高效、視覺化的後台操作指南，全章節完整收錄</p>
+                </div>
+            </div>
+
+            <div class="index-grid">
+                <div class="index-card" onclick="go('s1',null)" style="cursor:pointer;">
+                    <div class="idx-phase">第一階段</div>
+                    <h3>系統核心設定</h3>
+                    <ul>
+                        <li>1. 系統參數設定</li>
+                        <li>2. 圖片裁切功能</li>
+                        <li>3. 使用者管理</li>
+                    </ul>
+                    <div class="idx-btn">進入查看 →</div>
+                </div>
+                <div class="index-card" onclick="go('s4',null)" style="cursor:pointer;">
+                    <div class="idx-phase">第二階段</div>
+                    <h3>版面與頁面管理</h3>
+                    <ul>
+                        <li>4. 網頁版面管理</li>
+                        <li>5. 自訂頁面維護</li>
+                        <li>6. 廣告橫幅設定</li>
+                    </ul>
+                    <div class="idx-btn">進入查看 →</div>
+                </div>
+                <div class="index-card" onclick="go('s7',null)" style="cursor:pointer;">
+                    <div class="idx-phase">第三階段</div>
+                    <h3>內容維護管理</h3>
+                    <ul>
+                        <li>7. 首頁區塊設定</li>
+                        <li>8. 圖片區塊設定</li>
+                        <li>9. 最新消息發布</li>
+                    </ul>
+                    <div class="idx-btn">進入查看 →</div>
+                </div>
+            </div>
+
+            <div class="doc-card" style="margin-top:2rem;border-left:4px solid var(--accent);">
+                <h3 class="card-title">使用說明</h3>
+                <p>本手冊旨在協助系統管理員快速上手後台操作，涵蓋系統核心、版面佈局及內容發布等功能。建議初次使用者依階段順序閱讀，或利用左側導航直達特定章節。</p>
+            </div>
+        </div>
+
+        <!-- ════════════════ S1 系統維護-基本參數 ════════════════ -->
+        <div id="s1" class="sec">
+            <h2 class="sec-title">1. 系統參數設定</h2>
+            <div class="path-info">操作路徑：系統管理 / 系統維護 / 基本參數</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">介面截圖區</h3>
+                <div class="img-step">
+                    <img src="manual_extracted/word/media/image1.png" alt="基本參數設定畫面">
+                    <div class="img-cap">圖 1｜基本參數設定總覽</div>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3 class="card-title">欄位詳細說明表</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>欄位名稱</th>
+                            <th>設定說明與備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>網站標題 / 頁尾名稱</td>
+                            <td>設定於前台瀏覽器分頁及頁尾顯示的名稱。</td>
+                        </tr>
+                        <tr>
+                            <td>連絡電話 / 信箱</td>
+                            <td>供前台系統聯繫使用的官方資訊。</td>
+                        </tr>
+                        <tr>
+                            <td>版型樣式</td>
+                            <td>關鍵設定，將決定首頁廣告橫幅的顯示比例與排版。</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="callout tip">💡 提示：修改任何欄位後，請務必捲動至底部點擊 <strong class="btn">儲存</strong> 按鈕。</div>
+            </div>
+
+            <h3 class="sub-heading">版型樣式：影響廣告橫幅</h3>
+            <div class="doc-card">
+                <div class="callout note">💡 版型樣式設定會直接影響廣告橫幅的顯示比例，請根據實際使用情境選擇對應樣式。</div>
+                <div class="two-col-imgs">
+                    <div class="img-step">
+                        <img src="manual_extracted/word/media/image2.png" alt="版型樣式下拉">
+                        <div class="img-cap">圖 2｜版型樣式下拉</div>
+                    </div>
+                    <div class="img-step">
+                        <img src="manual_extracted/word/media/image3.png" alt="廣告橫幅設定選單">
+                        <div class="img-cap">圖 3｜廣告橫幅設定選單</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="sub-heading">判定樣式圖案大小</h3>
+            <div class="path-info">操作路徑：系統前台 / 按 F12 (DevTools) / Elements 面板</div>
+            <div class="doc-card">
+                <ol class="step-list">
+                    <li>
+                        <div class="step-content">
+                            <span>開啟開發人員工具</span>
+                            <div class="two-col-imgs">
+                                <div class="img-step">
+                                    <img src="manual_extracted/word/media/image4.png" alt="開發人員工具選單">
+                                    <div class="img-cap">圖 4｜開啟「開發人員工具」</div>
+                                </div>
+                                <div class="img-step">
+                                    <img src="manual_extracted/word/media/image5.png" alt="提示圖示">
+                                    <div class="img-cap">圖 5｜提示圖示位置</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>選取 <strong class="btn">Elements</strong> 元素面板</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image8.png" alt="DevTools 元素面板">
+                                <div class="img-cap">圖 8｜選取 Elements 元素面板</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>檢視廣告元素 CSS 尺寸</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image10.png" alt="DevTools 檢視廣告尺寸">
+                                <div class="img-cap">圖 10｜檢視廣告元素 CSS 尺寸</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>各樣式預覽截圖</span>
+                            <div class="multi-imgs">
+                                <div class="img-step"><img src="manual_extracted/word/media/image11.png" alt="樣式1">
+                                    <div class="img-cap">樣式一</div>
+                                </div>
+                                <div class="img-step"><img src="manual_extracted/word/media/image12.png" alt="樣式2">
+                                    <div class="img-cap">樣式二</div>
+                                </div>
+                                <div class="img-step"><img src="manual_extracted/word/media/image13.png" alt="樣式3">
+                                    <div class="img-cap">樣式三</div>
+                                </div>
+                                <div class="img-step"><img src="manual_extracted/word/media/image14.png" alt="樣式4">
+                                    <div class="img-cap">樣式四</div>
+                                </div>
+                                <div class="img-step"><img src="manual_extracted/word/media/image15.png" alt="樣式5">
+                                    <div class="img-cap">樣式五</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <h3 class="sub-heading">建議製作尺寸</h3>
+            <div class="callout warning">📐 為了避免前台留白，圖片製作尺寸應略大長於廣告框格，以下為各樣式建議像素(px)：</div>
+            <div class="spec-row">
+                <div class="spec-card">
+                    <div class="s-label">樣式一</div>
+                    <div class="s-val">1060 × 600</div>
+                </div>
+                <div class="spec-card">
+                    <div class="s-label">樣式二</div>
+                    <div class="s-val">1720 × 710</div>
+                </div>
+                <div class="spec-card">
+                    <div class="s-label">樣式三</div>
+                    <div class="s-val">630 × 240</div>
+                </div>
+                <div class="spec-card">
+                    <div class="s-label">樣式四</div>
+                    <div class="s-val">1920 × 710</div>
+                </div>
+                <div class="spec-card">
+                    <div class="s-label">樣式五</div>
+                    <div class="s-val">1920 × 610</div>
+                </div>
+            </div>
+        </div><!-- /s1 -->
+
+
+        <!-- ════════════════ S2 補充：如何裁減適合的大小 ════════════════ -->
+        <div id="s2" class="sec">
+            <h2 class="sec-title">2. 圖片裁切功能</h2>
+            <div class="path-info">操作路徑：桌面軟體 / PowerPoint / 設計頁籤</div>
+
+            <div class="callout tip">💡 建議使用 <strong>PowerPoint</strong> 裁切圖片，可精準控制像素尺寸後匯出為 JPEG。</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">裁切操作流程</h3>
+                <ol class="step-list">
+                    <li>
+                        <div class="step-content">
+                            <span>點選「設計」頁籤</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image16.png" alt="PowerPoint 設計頁籤">
+                                <div class="img-cap">圖 16｜點選「設計」頁籤</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>點選「投影片大小」</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image17.png" alt="投影片大小按鈕">
+                                <div class="img-cap">圖 17｜點選「投影片大小」</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>輸入精確寬度與高度</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image18.png" alt="投影片大小對話框">
+                                <div class="img-cap">圖 18｜輸入精確寬度與高度</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>依畫布調整圖片素材</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image19.png" alt="投影片畫布">
+                                <div class="img-cap">圖 19｜依畫布調整圖片素材</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>確認邊框預覽</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image20.png" alt="左側投影幕預覽">
+                                <div class="img-cap">圖 20｜確認邊框預覽</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>檔案 > 另存新檔</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image21.png" alt="另存新檔">
+                                <div class="img-cap">圖 21｜檔案 > 另存新檔</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>儲存類型選擇 JPEG</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image22.png" alt="選擇 JPEG 格式">
+                                <div class="img-cap">圖 22｜儲存類型選擇 JPEG</div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div><!-- /s2 -->
+
+
+        <!-- ════════════════ S3 帳號權限管理 ════════════════ -->
+        <div id="s3" class="sec">
+            <h2 class="sec-title">3. 使用者管理</h2>
+            <div class="path-info">操作路徑：系統管理 / 權限管理 / 使用者設定</div>
+
+            <div class="callout note">📋 此功能用於管理後台系統管理人員的帳號資料，僅限有管理員權限的帳號操作。</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">介面截圖區</h3>
+                <ol class="step-list">
+                    <li>
+                        <div class="step-content">
+                            <span>人員列表清單</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image23.png" alt="使用者列表">
+                                <div class="img-cap">圖 23｜人員列表清單</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>點擊「新增使用者」按鈕</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image24.png" alt="新增使用者按鈕">
+                                <div class="img-cap">圖 24｜點擊「新增使用者」按鈕</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>展開詳細基本資料</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image25.png" alt="使用者新增表單">
+                                <div class="img-cap">圖 25｜展開詳細基本資料</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>填寫完成並點擊送出</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image26.png" alt="填寫完成送出">
+                                <div class="img-cap">圖 26｜填寫完成並點擊送出</div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="doc-card">
+                <h3 class="card-title">欄位詳細說明表</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>欄位名稱</th>
+                            <th>設定說明與備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>登入帳號</td>
+                            <td>人員登入後台時所使用的唯一 ID。</td>
+                        </tr>
+                        <tr>
+                            <td>預設密碼</td>
+                            <td>系統建立時分配的初始密碼。</td>
+                        </tr>
+                        <tr>
+                            <td>顯示姓名</td>
+                            <td>於系統右上角或記錄中顯示的人員名稱。</td>
+                        </tr>
+                        <tr>
+                            <td>權限群組</td>
+                            <td>勾選該人員可操作的後台單元（例如僅能維護最新消息）。</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="callout tip">💡 提醒：新增完成後，請務必點擊 <strong class="btn">送出</strong> 以存檔。</div>
+            </div>
+        </div><!-- /s3 -->
+
+
+        <!-- ════════════════ S4 網頁版面管理 ════════════════ -->
+        <div id="s4" class="sec">
+            <h2 class="sec-title">4. 網頁版面管理</h2>
+            <div class="path-info">操作路徑：版面管理 / 網頁版面設定 / 主選單設定</div>
+
+            <div class="callout note">📋 此功能用於管理網站的主選單結構，可靈活新增、排序或調整各選單項目。</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">介面截圖區</h3>
+                <div class="two-col-imgs">
+                    <div class="img-step">
+                        <img src="manual_extracted/word/media/image27.png" alt="主選單管理">
+                        <div class="img-cap">圖 27｜主選單階層管理</div>
+                    </div>
+                    <div class="img-step">
+                        <img src="manual_extracted/word/media/image28.png" alt="選單詳細">
+                        <div class="img-cap">圖 28｜選單屬性呈現</div>
+                    </div>
+                </div>
+                <div class="img-step">
+                    <img src="manual_extracted/word/media/image30.png" alt="送出按鈕">
+                    <div class="img-cap">圖 29｜新增頁面，開始設計</div>
+                </div>
+                <div class="img-step">
+                    <img src="manual_extracted/word/media/image29.png" alt="選擇更改項目">
+                    <div class="img-cap">圖 30｜選單功能切換（連結/自訂頁面）</div>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3 class="card-title">欄位詳細說明表</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>欄位名稱</th>
+                            <th>設定說明與備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>選單名稱</td>
+                            <td>預期顯示於前台導航列的文字。</td>
+                        </tr>
+                        <tr>
+                            <td>連結</td>
+                            <td>手動貼入 URL，點擊後跳轉外部連結。</td>
+                        </tr>
+                        <tr>
+                            <td>自訂頁面</td>
+                            <td>從系統製作好的頁面清單中選取。</td>
+                        </tr>
+                        <tr>
+                            <td>排序</td>
+                            <td>根據排序位置，選單顯示位置越靠前。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /s4 -->
+
+
+        <!-- ════════════════ S5 自訂頁面維護 ════════════════ -->
+        <div id="s5" class="sec">
+            <h2 class="sec-title">5. 自訂頁面維護</h2>
+            <div class="path-info">操作路徑：內容維護 / 自訂頁面維護</div>
+
+            <div class="callout tip">💡 建議先想好頁面架構，再選擇適合的頁面類型進行編輯。</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">頁面類型與截圖</h3>
+                <ol class="step-list">
+                    <li>
+                        <div class="step-content">
+                            <span>新增頁面基本資訊</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image31.png" alt="新增頁面表單">
+                                <div class="img-cap">圖 31｜自訂頁面基本資訊</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>類型：一般 vs 分頁</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image32.png" alt="一般/分頁 切換">
+                                <div class="img-cap">圖 32｜類型：一般 vs 分頁</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>設定縮略圖並進入編輯區</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image33.png" alt="縮略圖設定">
+                                <div class="img-cap">圖 33｜設定縮略圖並進入編輯區</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>編輯完成後點擊儲存並送出</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image34.png" alt="儲存送出">
+                                <div class="img-cap">圖 34｜編輯完成後點擊儲存並送出</div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="doc-card">
+                <h3 class="card-title">欄位詳細說明表</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>欄位名稱</th>
+                            <th>設定說明與備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>一般 (類型)</td>
+                            <td>所有區塊自上而下連續顯示。</td>
+                        </tr>
+                        <tr>
+                            <td>分頁 (類型)</td>
+                            <td>區塊會轉化為分頁標籤，方便長文閱讀。</td>
+                        </tr>
+                        <tr>
+                            <td>縮略圖</td>
+                            <td>設定頁面的代表圖片。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /s5 -->
+
+
+        <!-- ════════════════ S6 廣告橫幅設定 ════════════════ -->
+        <div id="s6" class="sec">
+            <h2 class="sec-title">6. 廣告橫幅設定</h2>
+            <div class="path-info">操作路徑：內容維護 / 廣告橫幅設定</div>
+
+            <div class="callout warning">⚠️ 注意：圖片格式須為 JPEG，尺寸須符合各版型規範，以免畫面變形（詳見章節 1）。</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">介面截圖區</h3>
+                <ol class="step-list">
+                    <li>
+                        <div class="step-content">
+                            <span>廣告橫幅列表及「新增橫幅」按鈕</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image35.png" alt="廣告橫幅列表及「新增橫幅」按鈕">
+                                <div class="img-cap">圖 35｜廣告橫幅列表及「新增橫幅」按鈕</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>橫幅詳細資訊設定</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image36.png" alt="橫幅新增表單">
+                                <div class="img-cap">圖 36｜橫幅詳細資訊設定</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>選擇上傳對應樣式的 JPEG 圖檔</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image37.png" alt="選擇上傳對應樣式的 JPEG 圖檔">
+                                <div class="img-cap">圖 37｜選擇上傳對應樣式的 JPEG 圖檔</div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="doc-card">
+                <h3 class="card-title">欄位詳細說明表</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>欄位名稱</th>
+                            <th>設定說明與備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>標題</td>
+                            <td>內部辨識用或圖片滑過後的文字提示。</td>
+                        </tr>
+                        <tr>
+                            <td>橫幅圖片</td>
+                            <td>上傳製作好的廣告圖，格式限 JPEG。</td>
+                        </tr>
+                        <tr>
+                            <td>連結位置</td>
+                            <td>設定圖片點擊後導向的網址。</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="callout tip">💡 提醒：設定完成後，點擊 <strong class="btn">送出</strong> 即可生效。</div>
+            </div>
+        </div><!-- /s6 -->
+
+
+        <!-- ════════════════ S7 首頁區塊設定 ════════════════ -->
+        <div id="s7" class="sec">
+            <h2 class="sec-title">7. 首頁區塊設定</h2>
+            <div class="path-info">操作路徑：內容維護 / 首頁區塊設定</div>
+
+            <div class="callout tip">💡 藉由設定一般區塊、影音區塊等，可自定義首頁呈現的資訊內容。</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">介面截圖：區塊管理</h3>
+                <div class="img-step">
+                    <img src="manual_extracted/word/media/image38.png" alt="首頁各項區塊管理列表清單">
+                    <div class="img-cap">圖 38｜首頁各項區塊管理列表清單</div>
+                </div>
+            </div>
+
+            <h3 class="sub-heading">區塊內容管理與項目排列</h3>
+
+            <div class="doc-card">
+                <ol class="step-list">
+                    <li>
+                        <div class="step-content">
+                            <span>點擊「新增區塊」按鈕</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image39.png" alt="點擊「新增區塊」按鈕">
+                                <div class="img-cap">圖 39｜點擊「新增區塊」按鈕</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>設定區塊標題與是否啟用</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image40.png" alt="設定區塊標題與是否啟用">
+                                <div class="img-cap">圖 40｜設定區塊標題與是否啟用</div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="tab-container">
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="switchTab('t1', this)">一般區塊 1</button>
+                    <button class="tab-btn" onclick="switchTab('t2', this)">一般區塊 2</button>
+                    <button class="tab-btn" onclick="switchTab('t3', this)">影音區塊</button>
+                </div>
+
+                <!-- 分頁內文 1：一般區塊 1 -->
+                <div id="t1" class="tab-panel active">
+                    <div class="doc-card">
+                        <ol class="step-list">
+                            <li>
+                                <div class="step-content">
+                                    <span>區塊內容管理與項目排列</span>
+                                    <div class="img-step">
+                                        <img src="manual_extracted/word/media/image41.png" alt="區塊內容管理與項目排列">
+                                        <div class="img-cap">圖 41｜區塊內容管理細節</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <span>一般區塊 1 前台呈現效果</span>
+                                    <div class="img-step">
+                                        <img src="manual_extracted/word/media/image42.png" alt="一般區塊 1 前台呈現效果">
+                                        <div class="img-cap">圖 42｜一般區塊 1 前台呈現效果</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 分頁內文 2：一般區塊 2 (服務) -->
+                <div id="t2" class="tab-panel">
+                    <div class="doc-card">
+                        <ol class="step-list">
+                            <li>
+                                <div class="step-content">
+                                    <span>區塊內容管理與項目排列</span>
+                                    <div class="img-step">
+                                        <img src="manual_extracted/word/media/image43.png" alt="服務區塊後台設定">
+                                        <div class="img-cap">圖 43｜服務區塊後台設定</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <span>一般區塊 2 前台呈現效果</span>
+                                    <div class="img-step">
+                                        <img src="manual_extracted/word/media/image44.png" alt="服務區塊前台顯示">
+                                        <div class="img-cap">圖 44｜服務區塊前台顯示</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 分頁內文 3：影音區塊 -->
+                <div id="t3" class="tab-panel">
+                    <div class="doc-card">
+                        <ol class="step-list">
+                            <li>
+                                <div class="step-content">
+                                    <span>區塊影音管理與項目排列</span>
+                                    <div class="img-step">
+                                        <img src="manual_extracted/word/media/image45.png" alt="影音連結與標題設定">
+                                        <div class="img-cap">圖 45｜影音連結與標題設定</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <span>影音區塊前台呈現效果</span>
+                                    <div class="img-step">
+                                        <img src="manual_extracted/word/media/image46.png" alt="影片播放區塊前台呈現">
+                                        <div class="img-cap">圖 46｜影片播放區塊前台呈現</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3 class="card-title">欄位詳細說明表</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>欄位名稱</th>
+                            <th>設定說明與備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>顯示區塊名稱</td>
+                            <td>前台區塊顯示的標題文字。</td>
+                        </tr>
+                        <tr>
+                            <td>顯示筆數</td>
+                            <td>決定此區塊一次抓取幾筆最新消息。</td>
+                        </tr>
+                        <tr>
+                            <td>影音 URL</td>
+                            <td>貼入 YouTube 或其他影音服務的嵌入代碼。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /s7 -->
+
+
+        <!-- ════════════════ S8 圖片區塊設定 ════════════════ -->
+        <div id="s8" class="sec">
+            <h2 class="sec-title">8. 圖片區塊設定</h2>
+            <div class="path-info">操作路徑：內容維護 / 圖片區塊設定</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">介面截圖與操作</h3>
+                <div class="img-step">
+                    <img src="manual_extracted/word/media/image47.png" alt="圖片內容編輯介面">
+                    <div class="img-cap">圖 47｜圖片內容編輯介面</div>
+                </div>
+                <div class="img-step">
+                    <img src="manual_extracted/word/media/image48.png" alt="圖片區塊前台呈現">
+                    <div class="img-cap">圖 48｜圖片區塊前台呈現</div>
+                </div>
+                <div class="callout tip">💡 提醒：設定完成後，點擊 <strong class="btn">儲存</strong> 即可生效。</div>
+            </div>
+        </div><!-- /s8 -->
+
+
+        <!-- ════════════════ S9 最新消息管理 ════════════════ -->
+        <div id="s9" class="sec">
+            <h2 class="sec-title">9. 最新消息發布</h2>
+            <div class="path-info">操作路徑：內容維護 / 最新消息管理</div>
+
+            <div class="callout note">📋 最新消息維護採層級化管理：<strong>分類 > 文章設定 > 文章編輯</strong>。所有內容必須依照此順序建立。</div>
+
+            <div class="doc-card">
+                <h3 class="card-title">三步驟流程圖解</h3>
+                <ol class="step-list">
+                    <li>
+                        <div class="step-content">
+                            <span>Step 1. 建立消息分類標籤</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image49.png" alt="建立消息分類標籤">
+                                <div class="img-cap">圖 49｜建立消息分類標籤</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>Step 2. 建立標題與發布日期</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image50.png" alt="建立標題與發布日期">
+                                <div class="img-cap">圖 50｜建立標題與發布日期</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>Step 3. 進入編輯器撰寫內文細節</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image51.png" alt="進入編輯器撰寫內文細節">
+                                <div class="img-cap">圖 51｜進入編輯器撰寫內文細節</div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="doc-card">
+                <h3 class="card-title">展示效果與最終內頁</h3>
+                <div class="two-col-imgs">
+                    <div class="img-step">
+                        <img src="manual_extracted/word/media/image52.png" alt="前台最新消息列表呈現畫面">
+                        <div class="img-cap">圖 52｜前台最新消息列表呈現畫面</div>
+                    </div>
+                    <div class="img-step">
+                        <img src="manual_extracted/word/media/image53.png" alt="前台消息詳細內文頁面">
+                        <div class="img-cap">圖 53｜前台消息詳細內文頁面</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3 class="card-title">文字說明與欄位定義</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>管理層級</th>
+                            <th>用途說明與建議</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>① 分類設定</td>
+                            <td>例如：公告、轉知、活動。</td>
+                        </tr>
+                        <tr>
+                            <td>② 文章設定</td>
+                            <td>設定文章的標題、日期、代表圖及是否置頂。</td>
+                        </tr>
+                        <tr>
+                            <td>③ 文章編輯</td>
+                            <td>使用編輯器上傳圖片、排版文字，決定內頁呈現模樣。</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="callout tip">💡 提醒：撰寫完畢後，請務必點擊 <strong class="btn">儲存</strong> 並按下 <strong
+                        class="btn">送出</strong> 即可正式發布。</div>
+            </div>
+        </div><!-- /s9 -->
+
+
+        <footer>
+            <p>© 義守大學 圖書資訊處 圖資組 · 後台系統維護操作手冊 · 2025 ULTIMATE EDITION</p>
+        </footer>
+    </main>
+
+    <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂部"
+        style="position:fixed;bottom:2rem;right:2rem;width:48px;height:48px;border-radius:50%;background:var(--grad);color:#fff;border:none;cursor:pointer;font-size:1.3rem;box-shadow:var(--shadow-lg);display:none;align-items:center;justify-content:center;z-index:999;transition:var(--transition);">↑</button>
+
+    <script>
+        function go(id, el) {
+            document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if (el) el.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchTab(tabId, el) {
+            const container = el.closest('.tab-container');
+            container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            container.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Scroll-to-top button visibility
+        const main = document.querySelector('main') || window;
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('scrollTop');
+            btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+        });
+    </script>
+</body>
+
+</html>
