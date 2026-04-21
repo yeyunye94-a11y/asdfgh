@@ -1209,25 +1209,81 @@
             <div class="callout note">📋 此功能用於管理網站的主選單結構，可靈活新增、排序或調整各選單項目。</div>
 
             <div class="doc-card">
-                <h3 class="card-title">介面截圖區</h3>
+                <h3 class="card-title">介面截圖：總覽對照</h3>
                 <div class="two-col-imgs">
                     <div class="img-step">
-                        <img src="manual_extracted/word/media/image27.png" alt="主選單管理">
-                        <div class="img-cap">圖 27｜主選單階層管理</div>
+                        <img src="manual_extracted/word/media/image27.png" alt="主選單管理列表">
+                        <div class="img-cap">圖 27｜後台：選單管理列表</div>
                     </div>
                     <div class="img-step">
-                        <img src="manual_extracted/word/media/image28.png" alt="選單詳細">
-                        <div class="img-cap">圖 28｜選單屬性呈現</div>
+                        <img src="manual_extracted/word/media/image28.png" alt="導覽列前台呈現">
+                        <div class="img-cap">圖 28｜前台：導覽列呈現效果</div>
                     </div>
                 </div>
-                <div class="img-step">
-                    <img src="manual_extracted/word/media/image30.png" alt="送出按鈕">
-                    <div class="img-cap">圖 29｜新增頁面，開始設計</div>
-                </div>
-                <div class="img-step">
-                    <img src="manual_extracted/word/media/image29.png" alt="選擇更改項目">
-                    <div class="img-cap">圖 30｜選單功能切換（連結/自訂頁面）</div>
-                </div>
+            </div>
+
+            <h3 class="sub-heading">主選單分層設定與新增</h3>
+            <div class="doc-card">
+                <div class="callout tip">💡 核心觀念：利用「上層選單」欄位，可決定該項目是「頂層標籤」還是「下拉子項目」。</div>
+                
+                <ol class="step-list">
+                    <li>
+                        <div class="step-content">
+                            <span>階層化選單呈現效果</span>
+                            <p>設定完成後，後台列表將以樹狀結構呈現階層關係，前台則自動產生下拉選單。</p>
+                            <div class="two-col-imgs">
+                                <div class="img-step">
+                                    <img src="manual_extracted/word/media/image29.png" alt="前台下拉呈現">
+                                    <div class="img-cap">圖 29｜前端：自動產生的下拉選單效果</div>
+                                </div>
+                                <div class="img-step">
+                                    <img src="manual_extracted/word/media/image31.png" alt="後台分層結構">
+                                    <div class="img-cap">圖 31｜後端：選單列表分層效果</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>場景一：建立根目錄項目</span>
+                            <p>在建立選單時，將「上層選單」設定為 <strong class="btn">「根目錄」</strong>，並同步設定標題、路徑與顯示類型。</p>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image30.png" alt="選單名稱與類型設定">
+                                <div class="img-cap">圖 30｜設定選單標題、路徑與顯示類型</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>主選單新增－設定為「根目錄」</span>
+                            <p>在選單設定頁面，於「上層選單」下拉選單中選擇 <strong class="btn">根目錄</strong>，即可將該項目設為第一層主選單。</p>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image32.png" alt="主選單新增-根目錄">
+                                <div class="img-cap">圖 32｜主選單新增：上層選單設定為「根目錄」</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>主選單新增－建立下拉子選單</span>
+                            <p>在選單列表中找到父級項目，點擊右側的 <strong style="color:#22c55e;">綠色新增按鈕 (+)</strong> 以新增下層選單。</p>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image33.png" alt="主選單新增-下拉選單">
+                                <div class="img-cap">圖 33｜點擊項目右側的「新增下層選單」按鈕</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>主選單新增－確認上層選單聯結</span>
+                            <p>進入新增頁面後，系統會自動將「上層選單」鎖定為剛才點選的父級項目名稱。</p>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image34.png" alt="主選單新增-下拉選單-上層選單">
+                                <div class="img-cap">圖 34｜新增子選單時系統自動帶入上層項目名稱</div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
             </div>
 
             <div class="doc-card">
@@ -1253,8 +1309,8 @@
                             <td>從系統製作好的頁面清單中選取。</td>
                         </tr>
                         <tr>
-                            <td>排序</td>
-                            <td>根據排序位置，選單顯示位置越靠前。</td>
+                            <td>上層選單</td>
+                            <td>關鍵設定。選擇「根目錄」則為第一層；選擇特定項目則成為該項目的子選單。</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1274,37 +1330,62 @@
                 <ol class="step-list">
                     <li>
                         <div class="step-content">
-                            <span>新增頁面基本資訊</span>
+                            <span>步驟一：選擇自訂頁面類型</span>
+                            <p>在選單管理中，針對欲顯示自訂內容的項目，將其「顯示類型」設定為 <strong class="btn">自訂頁面</strong>。</p>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image31.png" alt="新增頁面表單">
-                                <div class="img-cap">圖 31｜自訂頁面基本資訊</div>
+                                <img src="manual_extracted/word/media/image35.png" alt="選擇自訂頁面類型">
+                                <div class="img-cap">圖 35｜將顯示類型切換為「自訂頁面」</div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="step-content">
-                            <span>類型：一般 vs 分頁</span>
-                            <div class="img-step">
-                                <img src="manual_extracted/word/media/image32.png" alt="一般/分頁 切換">
-                                <div class="img-cap">圖 32｜類型：一般 vs 分頁</div>
+                            <span>步驟二：新增頁面並進行細節設定</span>
+                            <p>點擊列表上方的 <strong class="btn">「+ 新增頁面」</strong> 按鈕，開始建立頁面基本資訊。</p>
+                            <div class="two-col-imgs">
+                                <div class="img-step">
+                                    <img src="manual_extracted/word/media/image36.png" alt="新增頁面按鈕">
+                                    <div class="img-cap">圖 36｜點擊「新增頁面」按鈕</div>
+                                </div>
+                                <div class="img-step">
+                                    <img src="manual_extracted/word/media/image37.png" alt="基本資訊設定">
+                                    <div class="img-cap">圖 37｜填寫頁面基本資訊與設定</div>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="step-content">
-                            <span>設定縮略圖並進入編輯區</span>
+                            <span>步驟三：選擇呈現類型 (一般 vs 分頁)</span>
+                            <div class="callout tip">
+                                <b>製作模式選擇：</b>
+                                <ul>
+                                    <li><strong>一般</strong>：內容依序堆疊，適合短篇文章。</li>
+                                    <li><strong>分頁</strong>：自動轉為 Tab 標籤，適合長篇內容。</li>
+                                </ul>
+                            </div>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image33.png" alt="縮略圖設定">
-                                <div class="img-cap">圖 33｜設定縮略圖並進入編輯區</div>
+                                <img src="manual_extracted/word/media/image38.png" alt="一般與分頁切換">
+                                <div class="img-cap">圖 38｜選擇一般或分頁製作模式</div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="step-content">
-                            <span>編輯完成後點擊儲存並送出</span>
+                            <span>步驟四：製作頁面內容</span>
+                            <p>利用內建編輯器進行文字、圖片或檔案的排版設計，輕鬆完成自訂頁面製作。</p>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image34.png" alt="儲存送出">
-                                <div class="img-cap">圖 34｜編輯完成後點擊儲存並送出</div>
+                                <img src="manual_extracted/word/media/image39.png" alt="編輯內文">
+                                <div class="img-cap">圖 39｜利用區塊編輯器製作頁面內文</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-content">
+                            <span>步驟五：預覽與發布確認</span>
+                            <div class="img-step">
+                                <img src="manual_extracted/word/media/image40.png" alt="發布確認">
+                                <div class="img-cap">圖 40｜發布前預覽確認最終呈現效果</div>
                             </div>
                         </div>
                     </li>
@@ -1351,28 +1432,10 @@
                 <ol class="step-list">
                     <li>
                         <div class="step-content">
-                            <span>廣告橫幅列表及「新增橫幅」按鈕</span>
+                            <span>橫幅管理界面與新增設定</span>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image35.png" alt="廣告橫幅列表及「新增橫幅」按鈕">
-                                <div class="img-cap">圖 35｜廣告橫幅列表及「新增橫幅」按鈕</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="step-content">
-                            <span>橫幅詳細資訊設定</span>
-                            <div class="img-step">
-                                <img src="manual_extracted/word/media/image36.png" alt="橫幅新增表單">
-                                <div class="img-cap">圖 36｜橫幅詳細資訊設定</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="step-content">
-                            <span>選擇上傳對應樣式的 JPEG 圖檔</span>
-                            <div class="img-step">
-                                <img src="manual_extracted/word/media/image37.png" alt="選擇上傳對應樣式的 JPEG 圖檔">
-                                <div class="img-cap">圖 37｜選擇上傳對應樣式的 JPEG 圖檔</div>
+                                <img src="manual_extracted/word/media/image41.png" alt="橫幅管理與新增">
+                                <div class="img-cap">圖 41｜廣告橫幅列表與詳細設定界面</div>
                             </div>
                         </div>
                     </li>
@@ -1418,8 +1481,8 @@
             <div class="doc-card">
                 <h3 class="card-title">介面截圖：區塊管理</h3>
                 <div class="img-step">
-                    <img src="manual_extracted/word/media/image38.png" alt="首頁各項區塊管理列表清單">
-                    <div class="img-cap">圖 38｜首頁各項區塊管理列表清單</div>
+                    <img src="manual_extracted/word/media/image42.png" alt="首頁各項區塊管理列表清單">
+                    <div class="img-cap">圖 42｜首頁各項區塊管理列表清單</div>
                 </div>
             </div>
 
@@ -1431,8 +1494,8 @@
                         <div class="step-content">
                             <span>點擊「新增區塊」按鈕</span>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image39.png" alt="點擊「新增區塊」按鈕">
-                                <div class="img-cap">圖 39｜點擊「新增區塊」按鈕</div>
+                                <img src="manual_extracted/word/media/image43.png" alt="點擊「新增區塊」按鈕">
+                                <div class="img-cap">圖 43｜點擊「新增區塊」按鈕</div>
                             </div>
                         </div>
                     </li>
@@ -1440,8 +1503,8 @@
                         <div class="step-content">
                             <span>設定區塊標題與是否啟用</span>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image40.png" alt="設定區塊標題與是否啟用">
-                                <div class="img-cap">圖 40｜設定區塊標題與是否啟用</div>
+                                <img src="manual_extracted/word/media/image44.png" alt="設定區塊標題與是否啟用">
+                                <div class="img-cap">圖 44｜設定區塊標題與是否啟用</div>
                             </div>
                         </div>
                     </li>
@@ -1463,8 +1526,8 @@
                                 <div class="step-content">
                                     <span>區塊內容管理與項目排列</span>
                                     <div class="img-step">
-                                        <img src="manual_extracted/word/media/image41.png" alt="區塊內容管理與項目排列">
-                                        <div class="img-cap">圖 41｜區塊內容管理細節</div>
+                                        <img src="manual_extracted/word/media/image45.png" alt="區塊內容管理與項目排列">
+                                        <div class="img-cap">圖 45｜區塊內容管理細節</div>
                                     </div>
                                 </div>
                             </li>
@@ -1472,8 +1535,8 @@
                                 <div class="step-content">
                                     <span>一般區塊 1 前台呈現效果</span>
                                     <div class="img-step">
-                                        <img src="manual_extracted/word/media/image42.png" alt="一般區塊 1 前台呈現效果">
-                                        <div class="img-cap">圖 42｜一般區塊 1 前台呈現效果</div>
+                                        <img src="manual_extracted/word/media/image46.png" alt="一般區塊 1 前台呈現效果">
+                                        <div class="img-cap">圖 46｜一般區塊 1 前台呈現效果</div>
                                     </div>
                                 </div>
                             </li>
@@ -1489,8 +1552,8 @@
                                 <div class="step-content">
                                     <span>區塊內容管理與項目排列</span>
                                     <div class="img-step">
-                                        <img src="manual_extracted/word/media/image43.png" alt="服務區塊後台設定">
-                                        <div class="img-cap">圖 43｜服務區塊後台設定</div>
+                                        <img src="manual_extracted/word/media/image47.png" alt="服務區塊後台設定">
+                                        <div class="img-cap">圖 47｜服務區塊後台設定</div>
                                     </div>
                                 </div>
                             </li>
@@ -1498,8 +1561,8 @@
                                 <div class="step-content">
                                     <span>一般區塊 2 前台呈現效果</span>
                                     <div class="img-step">
-                                        <img src="manual_extracted/word/media/image44.png" alt="服務區塊前台顯示">
-                                        <div class="img-cap">圖 44｜服務區塊前台顯示</div>
+                                        <img src="manual_extracted/word/media/image48.png" alt="服務區塊前台顯示">
+                                        <div class="img-cap">圖 48｜服務區塊前台顯示</div>
                                     </div>
                                 </div>
                             </li>
@@ -1515,8 +1578,8 @@
                                 <div class="step-content">
                                     <span>區塊影音管理與項目排列</span>
                                     <div class="img-step">
-                                        <img src="manual_extracted/word/media/image45.png" alt="影音連結與標題設定">
-                                        <div class="img-cap">圖 45｜影音連結與標題設定</div>
+                                        <img src="manual_extracted/word/media/image49.png" alt="影音連結與標題設定">
+                                        <div class="img-cap">圖 49｜影音連結與標題設定</div>
                                     </div>
                                 </div>
                             </li>
@@ -1524,8 +1587,8 @@
                                 <div class="step-content">
                                     <span>影音區塊前台呈現效果</span>
                                     <div class="img-step">
-                                        <img src="manual_extracted/word/media/image46.png" alt="影片播放區塊前台呈現">
-                                        <div class="img-cap">圖 46｜影片播放區塊前台呈現</div>
+                                        <img src="manual_extracted/word/media/image50.png" alt="影片播放區塊前台呈現">
+                                        <div class="img-cap">圖 50｜影片播放區塊前台呈現</div>
                                     </div>
                                 </div>
                             </li>
@@ -1570,12 +1633,20 @@
             <div class="doc-card">
                 <h3 class="card-title">介面截圖與操作</h3>
                 <div class="img-step">
-                    <img src="manual_extracted/word/media/image47.png" alt="圖片內容編輯介面">
-                    <div class="img-cap">圖 47｜圖片內容編輯介面</div>
+                    <img src="manual_extracted/word/media/image51.png" alt="圖片內容編輯介面">
+                    <div class="img-cap">圖 51｜圖片內容管理設定</div>
                 </div>
                 <div class="img-step">
-                    <img src="manual_extracted/word/media/image48.png" alt="圖片區塊前台呈現">
-                    <div class="img-cap">圖 48｜圖片區塊前台呈現</div>
+                    <img src="manual_extracted/word/media/image52.png" alt="圖片區塊設定詳情">
+                    <div class="img-cap">圖 52｜圖片比例與樣式設定</div>
+                </div>
+                <div class="img-step">
+                    <img src="manual_extracted/word/media/image53.png" alt="圖片區塊前台呈現">
+                    <div class="img-cap">圖 53｜圖片區塊 1：前台呈現效果</div>
+                </div>
+                <div class="img-step">
+                    <img src="manual_extracted/word/media/image54.png" alt="圖片區塊 2：前台呈現效果">
+                    <div class="img-cap">圖 54｜圖片區塊 2：前台呈現效果</div>
                 </div>
                 <div class="callout tip">💡 提醒：設定完成後，點擊 <strong class="btn">儲存</strong> 即可生效。</div>
             </div>
@@ -1590,14 +1661,13 @@
             <div class="callout note">📋 最新消息維護採層級化管理：<strong>分類 > 文章設定 > 文章編輯</strong>。所有內容必須依照此順序建立。</div>
 
             <div class="doc-card">
-                <h3 class="card-title">三步驟流程圖解</h3>
                 <ol class="step-list">
                     <li>
                         <div class="step-content">
                             <span>Step 1. 建立消息分類標籤</span>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image49.png" alt="建立消息分類標籤">
-                                <div class="img-cap">圖 49｜建立消息分類標籤</div>
+                                <img src="manual_extracted/word/media/image55.png" alt="建立消息分類標籤">
+                                <div class="img-cap">圖 55｜建立消息分類標籤</div>
                             </div>
                         </div>
                     </li>
@@ -1605,8 +1675,8 @@
                         <div class="step-content">
                             <span>Step 2. 建立標題與發布日期</span>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image50.png" alt="建立標題與發布日期">
-                                <div class="img-cap">圖 50｜建立標題與發布日期</div>
+                                <img src="manual_extracted/word/media/image56.png" alt="建立標題與發布日期">
+                                <div class="img-cap">圖 56｜建立標題與發布日期</div>
                             </div>
                         </div>
                     </li>
@@ -1614,8 +1684,8 @@
                         <div class="step-content">
                             <span>Step 3. 進入編輯器撰寫內文細節</span>
                             <div class="img-step">
-                                <img src="manual_extracted/word/media/image51.png" alt="進入編輯器撰寫內文細節">
-                                <div class="img-cap">圖 51｜進入編輯器撰寫內文細節</div>
+                                <img src="manual_extracted/word/media/image57.png" alt="進入編輯器撰寫內文細節">
+                                <div class="img-cap">圖 57｜進入編輯器撰寫內文細節</div>
                             </div>
                         </div>
                     </li>
@@ -1626,12 +1696,12 @@
                 <h3 class="card-title">展示效果與最終內頁</h3>
                 <div class="two-col-imgs">
                     <div class="img-step">
-                        <img src="manual_extracted/word/media/image52.png" alt="前台最新消息列表呈現畫面">
-                        <div class="img-cap">圖 52｜前台最新消息列表呈現畫面</div>
+                        <img src="manual_extracted/word/media/image58.png" alt="前台最新消息列表呈現畫面">
+                        <div class="img-cap">圖 58｜前台最新消息列表呈現畫面</div>
                     </div>
                     <div class="img-step">
-                        <img src="manual_extracted/word/media/image53.png" alt="前台消息詳細內文頁面">
-                        <div class="img-cap">圖 53｜前台消息詳細內文頁面</div>
+                        <img src="manual_extracted/word/media/image59.png" alt="前台詳細內文頁呈現效果">
+                        <div class="img-cap">圖 59｜前台消息詳細內文展示效果</div>
                     </div>
                 </div>
             </div>
