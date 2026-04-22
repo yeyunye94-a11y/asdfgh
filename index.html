@@ -565,8 +565,32 @@
             font-weight: 800;
         }
 
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 10px;
+            padding: 4px 10px;
+            background: var(--grad-accent);
+            color: #fff !important;
+            text-decoration: none;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+            vertical-align: middle;
+        }
+
+        .quick-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3);
+            filter: brightness(1.1);
+        }
+
         /* ── Images ── */
         .img-step {
+            position: relative;
             margin: 1.5rem 0;
             border: 1px solid var(--border-light);
             border-radius: 12px;
@@ -578,6 +602,61 @@
             width: auto;
             display: inline-block;
             transition: var(--transition);
+        }
+
+        .zoom-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-in;
+            z-index: 50;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.3rem;
+            color: var(--primary);
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .img-step:hover .zoom-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .zoom-btn:hover {
+            background: var(--grad-accent);
+            color: #fff;
+            transform: scale(1.1) !important;
+            box-shadow: 0 12px 32px rgba(14, 165, 233, 0.3);
+        }
+
+        @media (max-width: 990px) {
+            .zoom-btn {
+                opacity: 0;
+                transform: scale(0.6);
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                right: 15px;
+                background: var(--primary);
+                color: #fff;
+                pointer-events: none; /* Only clickable when visible */
+            }
+
+            .img-step.show-zoom .zoom-btn {
+                opacity: 1;
+                transform: scale(1);
+                pointer-events: auto;
+                box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
+            }
         }
 
         .img-step:hover {
@@ -994,28 +1073,11 @@
             /* --- Mobile Lightbox Hint --- */
             .img-step {
                 position: relative;
-                cursor: zoom-in;
                 max-width: 100%;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 padding: 8px;
-            }
-
-            .img-step::after {
-                content: "🔍 點選放大";
-                position: absolute;
-                bottom: 12px;
-                right: 12px;
-                background: rgba(15, 43, 91, 0.85);
-                color: white;
-                padding: 4px 10px;
-                border-radius: 20px;
-                font-size: 0.72rem;
-                font-weight: 700;
-                opacity: 0.9;
-                pointer-events: none;
-                backdrop-filter: blur(4px);
             }
         }
 
@@ -1350,7 +1412,7 @@
                 </ol>
             </div>
 
-            <h3 class="sub-heading">建議製作尺寸</h3>
+            <h3 id="size-specs" class="sub-heading">建議製作尺寸</h3>
             <div class="callout warning">📐 為了避免前台留白，圖片製作尺寸應略大長於廣告框格，以下為各樣式建議像素(px)：</div>
             <div class="spec-row">
                 <div class="spec-card">
@@ -1419,7 +1481,7 @@
                             <span>依畫布調整圖片素材</span>
                             <div class="img-step">
                                 <img src="manual_extracted/word/media/image19.png" alt="投影片畫布">
-                                <div class="img-cap">圖 19｜依畫布調整圖片素材</div>
+                                <div class="img-cap">圖 19｜依畫布調整圖片素材 <a href="javascript:void(0)" onclick="jumpToSizes()" class="quick-link">➔ 建議製作尺寸</a></div>
                             </div>
                         </div>
                     </li>
@@ -2170,16 +2232,56 @@
             btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
         });
 
-        // Lightbox Logic
-        document.querySelectorAll('.img-step img').forEach(img => {
-            img.parentElement.addEventListener('click', (e) => {
+        // Lightbox Logic (Zoom Button)
+        document.querySelectorAll('.img-step').forEach(container => {
+            const img = container.querySelector('img');
+            if (!img) return;
+
+            // Create Zoom Button
+            const zoomBtn = document.createElement('div');
+            zoomBtn.className = 'zoom-btn';
+            zoomBtn.innerHTML = '🔍';
+            zoomBtn.title = '放大圖片';
+            container.appendChild(zoomBtn);
+
+            // Container click to reveal button on mobile
+            container.addEventListener('click', (e) => {
+                if (window.innerWidth <= 990) {
+                    // Close other zoom buttons
+                    document.querySelectorAll('.img-step.show-zoom').forEach(step => {
+                        if (step !== container) step.classList.remove('show-zoom');
+                    });
+                    container.classList.toggle('show-zoom');
+                }
+            });
+
+            // Click event for the button only
+            zoomBtn.addEventListener('click', (e) => {
                 const lb = document.getElementById('lightbox');
                 lb.querySelector('img').src = img.src;
                 lb.style.display = 'flex';
-                e.stopPropagation();
+                e.stopPropagation(); // Avoid toggling show-zoom
             });
         });
+        // Jump to Sizes shortcut
+        function jumpToSizes() {
+            go('s1');
+            setTimeout(() => {
+                const el = document.getElementById('size-specs');
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                    el.style.animation = 'highlight 1.5s ease';
+                }
+            }, 300);
+        }
     </script>
+
+    <style>
+        @keyframes highlight {
+            0% { background: rgba(14, 165, 233, 0.2); }
+            100% { background: rgba(14, 165, 233, 0.04); }
+        }
+    </style>
 </body>
 
 </html>
